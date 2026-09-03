@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: nginx-deployment
   labels:
     app: nginx
 spec:
@@ -19,10 +19,3 @@ spec:
         image: nginx:1.14.2
         ports:
         - containerPort: 80
-        resources:
-          limits:
-            memory: "2Mi" 
-            cpu: "50m"
-          requests:
-            memory: "1Mi"
-            cpu: "25m"
