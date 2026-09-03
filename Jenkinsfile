@@ -14,11 +14,7 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'k8s_creds', variable: 'KUBECONFIG')]) {
                     script {
-                        sh "pwd"
-                        sh "ls -l"
                         sh "kubectl --kubeconfig=${KUBECONFIG} apply -f k8s/ -n ${NAMESPACE}"
-
-                        
                         try {
                             sh """
                               kubectl --kubeconfig=${KUBECONFIG} rollout status deployment/${DEPLOYMENT_NAME} \
@@ -28,7 +24,7 @@ pipeline {
                         } catch (Exception e) {
                             echo "Deployment failed or timed out. Triggering AI Diagnostics..."
                             sh """
-                              pip install -r requirements.txt
+                              python -m pip install -r requirements.txt
                               python src/main.py \
                                 --deployment ${DEPLOYMENT_NAME} \
                                 --namespace ${NAMESPACE} \
