@@ -14,10 +14,11 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'k8s_creds', variable: 'KUBECONFIG')]) {
                     script {
-                        // 1. Deploy
+                        sh "pwd"
+                        sh "ls -l"
                         sh "kubectl --kubeconfig=${KUBECONFIG} apply -f k8s/ -n ${NAMESPACE}"
 
-                        // 2. Health check with fallback to AI diagnostics
+                        
                         try {
                             sh """
                               kubectl --kubeconfig=${KUBECONFIG} rollout status deployment/${DEPLOYMENT_NAME} \
