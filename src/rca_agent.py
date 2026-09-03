@@ -37,7 +37,7 @@ You MUST respond strictly in valid JSON format with this structure:
 """
 
     response = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="llama-3.1-8b-instant",
         messages=[
             {"role": "system", "content": "You are a Kubernetes troubleshooting assistant that outputs strictly valid JSON."},
             {"role": "user", "content": prompt}
