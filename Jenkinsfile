@@ -1,13 +1,15 @@
 pipeline {
-     agent {
+    agent {
         label 'dev'
     }
 
     environment {
-        LLM_API_KEY = credentials('GroQ_Secret')
+        LLM_API_KEY     = credentials('GroQ_Secret')
+        KUBECONFIG      = credentials('k8s_creds')      // Added: Binds your Jenkins Secret File
         DEPLOYMENT_NAME = 'backend'
         NAMESPACE       = 'production'
     }
+
     stages {
         stage('Deploy to Kubernetes') {
             steps {
